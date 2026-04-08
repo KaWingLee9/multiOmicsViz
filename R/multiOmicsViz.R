@@ -1,6 +1,6 @@
 multiOmicsViz <- function(sourceOmics,sourceOmicsName,chrome_sourceOmics,
 targetOmicsList,targetOmicsName,chrome_targetOmics,fdrThr,outputfile,
-nThreads=NULL,legend=TRUE){
+nThreads=NULL,legend=TRUE,cols=c('red','blue')){
     
     outputfile <- paste(outputfile,".png",sep="")
     
@@ -197,7 +197,7 @@ calculateCorForTwoMatrices(source_gene,targetOmicsList[[i]],fdrThr)
       targetOmicsName,dim=1)
       if(legend==TRUE){
         legend("topleft",c("positive correlation","negative correlation"),
-        col=c("red","green"),pch=19)
+        col=cols,pch=19)
       }
     }else{
       png(outputfile,height=480*8,width=480*5*length(targetOmicsList),res=300)
@@ -211,7 +211,7 @@ calculateCorForTwoMatrices(source_gene,targetOmicsList[[i]],fdrThr)
       }
       if(legend==TRUE){
         legend("topleft",c("positive correlation","negative correlation"),
-        col=c("red","green"),pch=19)
+        col=cols,pch=19)
       }
      
 .plotSummaryBar(resultList,chromLength_sourceOmics,genelocate_sourceOmics,
@@ -283,7 +283,7 @@ sourceOmicsName,targetOmicsName,dim=1){
         }
     
         cov <- corrArray[cnag,ovg]
-        color <- ifelse(cov>0,"red","green")
+        color <- ifelse(cov>0,cols[1],cols[2])
        
         if(la==1){
             if(dim==1){
