@@ -207,7 +207,7 @@ calculateCorForTwoMatrices(source_gene,targetOmicsList[[i]],fdrThr)
        
 .plotHeatMap(resultList[[i]],genelocate_sourceOmics,chromLength_sourceOmics,
         genelocate_targetOmics,chromLength_targetOmics,sourceOmicsName,
-        targetOmicsName[i],dim=2)
+        targetOmicsName[i],dim=2,cols=cols)
       }
       if(legend==TRUE){
         legend("topleft",c("positive correlation","negative correlation"),
@@ -253,7 +253,7 @@ calculateCorForTwoMatrices(source_gene,targetOmicsList[[i]],fdrThr)
 
 .plotHeatMap <- function(corrArray,genelocate_sourceOmics,
 chromLength_sourceOmics,genelocate_targetOmics,chromLength_targetOmics,
-sourceOmicsName,targetOmicsName,dim=1){
+sourceOmicsName,targetOmicsName,dim=1,cols=c('red','blue')){
 
     allChromlen_sourceOmics <-
     chromLength_sourceOmics[nrow(chromLength_sourceOmics),4]
