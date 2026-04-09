@@ -215,10 +215,10 @@ calculateCorForTwoMatrices(source_gene,targetOmicsList[[i]],fdrThr,cor_method)
       }
      
 .plotSummaryBar(resultList,chromLength_sourceOmics,genelocate_sourceOmics,
-      sourceOmicsName)
+      sourceOmicsName,cols=cols)
       if(legend==TRUE){
         legend("topleft",c("specific correlation","common correlation"),
-        col=c("blue","black"),lty=1,lwd=3)
+        cols=cols,lty=1,lwd=3)
       }
     }
     dev.off()
@@ -323,7 +323,7 @@ abline(h=c(0,chromLength_targetOmics[,4]),v=c(0,chromLength_sourceOmics[,4]),
 }
 
 .plotSummaryBar <- function(resultList,chromLength_sourceOmics,
-genelocate_sourceOmics,sourceOmicsName){
+genelocate_sourceOmics,sourceOmicsName,cols=c('red','blue')){
   #######Identify the common pairs for all omics data
     allChromlen <- chromLength_sourceOmics[nrow(chromLength_sourceOmics),4]
 
@@ -374,8 +374,8 @@ chromLength_sourceOmics[,2]/2),
         up <- spe_o[gg]
         do <- ov[gg]
         for(j in seq_len(length(gg_p))){
-            points(gg_p[j],up,cex=0.2,type="h",col="blue")
-            points(gg_p[j],do,cex=0.2,type="h",col="black")
+            points(gg_p[j],up,cex=0.2,type="h",col=cols[1])
+            points(gg_p[j],do,cex=0.2,type="h",col=cols[2])
         }
       }
     }
