@@ -35,14 +35,8 @@ calculateCorForTwoMatrices <- function(matrix1,matrix2,fdr,cor_method){
   corrArray[is.na(corrArray)] <- 0
 
   n <- t(!is.na(t(matrix1))) %*% (!is.na(t(matrix2)))
-
-  if (cor_method=='spearman'){
-   suppressWarnings(t <- (corrArray * sqrt(n - 2))/sqrt(1 - corrArray^2))
-   suppressWarnings(corrP <- 2 * (1 - pt(abs(t), (n - 2))))   
-  } else if (cor_method=='pearson'){
-   suppressWarnings(t <- (corrArray * sqrt(n - 2))/sqrt(1 - corrArray^2))
-   suppressWarnings(corrP <- 2 * (1 - pt(abs(t), (n - 2))))   
-  }
+  suppressWarnings(t <- (corrArray * sqrt(n - 2))/sqrt(1 - corrArray^2))
+  suppressWarnings(corrP <- 2 * (1 - pt(abs(t), (n - 2))))   
     
   corrP[is.na(corrP)] <- 0
   corrP[corrP>1] <- 1
