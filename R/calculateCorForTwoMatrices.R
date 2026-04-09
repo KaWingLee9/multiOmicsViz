@@ -1,4 +1,4 @@
-calculateCorForTwoMatrices <- function(matrix1,matrix2,fdr){
+calculateCorForTwoMatrices <- function(matrix1,matrix2,fdr,cor_method){
   ####the row of two matrices should be gene ids while col should be samples
   ###two matrices should have the same or similar sample names
   
@@ -31,7 +31,7 @@ calculateCorForTwoMatrices <- function(matrix1,matrix2,fdr){
   matrix1 <- matrix1[,ov_sample]
   matrix2 <- matrix2[,ov_sample]
   
-  suppressWarnings(corrArray <- cor(t(matrix1),t(matrix2),method="spearman"))
+  suppressWarnings(corrArray <- cor(t(matrix1),t(matrix2),method=cor_method))
   corrArray[is.na(corrArray)] <- 0
 
   n <- t(!is.na(t(matrix1))) %*% (!is.na(t(matrix2)))
