@@ -1,6 +1,6 @@
 multiOmicsViz <- function(sourceOmics,sourceOmicsName,chrome_sourceOmics,
 targetOmicsList,targetOmicsName,chrome_targetOmics,fdrThr,outputfile,
-nThreads=NULL,legend=TRUE,cols=c('red','blue')){
+nThreads=NULL,legend=TRUE,cols=c('red','blue'),cor_method='spearman'){
     
     outputfile <- paste(outputfile,".png",sep="")
     
@@ -158,7 +158,7 @@ intersect(unique(genelocate_sourceOmics[,1]),source_gene)
     cat("Identify the significant correlations...\n")
     if(length(targetOmicsList)==1){
       resultList <-
-calculateCorForTwoMatrices(source_gene,targetOmicsList[[1]],fdrThr)
+calculateCorForTwoMatrices(source_gene,targetOmicsList[[1]],fdrThr,cor_method)
     }else{
       cl <- makeCluster(nThreads)
       registerDoParallel(cl)
@@ -166,7 +166,7 @@ calculateCorForTwoMatrices(source_gene,targetOmicsList[[1]],fdrThr)
       resultList <- foreach(i=seq_len(length(targetOmicsList)), 
       .packages="multiOmicsViz") %dopar% {
         corrArray <-
-calculateCorForTwoMatrices(source_gene,targetOmicsList[[i]],fdrThr)
+calculateCorForTwoMatrices(source_gene,targetOmicsList[[i]],fdrThr,cor_method)
         return(corrArray)
       }
       stopCluster(cl)
